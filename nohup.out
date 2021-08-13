@@ -1,0 +1,49 @@
+./210803_bot_temp.py: 4: ./210803_bot_temp.py: import: not found
+./210803_bot_temp.py: 5: ./210803_bot_temp.py: import: not found
+./210803_bot_temp.py: 6: ./210803_bot_temp.py: import: not found
+./210803_bot_temp.py: 7: ./210803_bot_temp.py: import: not found
+./210803_bot_temp.py: 10: ./210803_bot_temp.py: API_KEY: not found
+./210803_bot_temp.py: 11: ./210803_bot_temp.py: Syntax error: "(" unexpected
+Traceback (most recent call last):
+  File "./210803_bot_temp.py", line 38, in <module>
+    bot.polling()
+  File "/usr/local/lib/python3.8/site-packages/telebot/__init__.py", line 617, in polling
+    self.__threaded_polling(none_stop, interval, timeout, long_polling_timeout, allowed_updates)
+  File "/usr/local/lib/python3.8/site-packages/telebot/__init__.py", line 676, in __threaded_polling
+    raise e
+  File "/usr/local/lib/python3.8/site-packages/telebot/__init__.py", line 639, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "/usr/local/lib/python3.8/site-packages/telebot/util.py", line 130, in raise_exceptions
+    raise self.exception_info
+  File "/usr/local/lib/python3.8/site-packages/telebot/util.py", line 82, in run
+    task(*args, **kwargs)
+  File "./210803_bot_temp.py", line 28, in check_temp
+    temperature_f = temperature_c * (9 / 5) + 32
+TypeError: unsupported operand type(s) for *: 'NoneType' and 'float'
+Traceback (most recent call last):
+  File "210803_bot_temp.py", line 27, in check_temp
+    temperature_c = dhtDevice.temperature
+  File "/usr/local/lib/python3.8/site-packages/adafruit_dht.py", line 259, in temperature
+    self.measure()
+  File "/usr/local/lib/python3.8/site-packages/adafruit_dht.py", line 243, in measure
+    raise RuntimeError("Checksum did not validate. Try again.")
+RuntimeError: Checksum did not validate. Try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "210803_bot_temp.py", line 38, in <module>
+    bot.polling()
+  File "/usr/local/lib/python3.8/site-packages/telebot/__init__.py", line 617, in polling
+    self.__threaded_polling(none_stop, interval, timeout, long_polling_timeout, allowed_updates)
+  File "/usr/local/lib/python3.8/site-packages/telebot/__init__.py", line 676, in __threaded_polling
+    raise e
+  File "/usr/local/lib/python3.8/site-packages/telebot/__init__.py", line 639, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "/usr/local/lib/python3.8/site-packages/telebot/util.py", line 130, in raise_exceptions
+    raise self.exception_info
+  File "/usr/local/lib/python3.8/site-packages/telebot/util.py", line 82, in run
+    task(*args, **kwargs)
+  File "210803_bot_temp.py", line 36, in check_temp
+    detDevice.exit()
+NameError: name 'detDevice' is not defined
