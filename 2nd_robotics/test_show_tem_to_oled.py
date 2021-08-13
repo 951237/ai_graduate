@@ -1,6 +1,7 @@
 # 온도 습도 센서의 결과를 oled에 출력하기
 from PIL import Image, ImageDraw, ImageFont
 import time
+from datetime import datetime
 
 import board
 import busio
@@ -39,14 +40,25 @@ x = 0
 # load font
 font = ImageFont.load_default()
 
+def draw_txt(loc, sub, result):
+    draw.text((x, top + loc), f"{sub} : {result}", font=font, fill=255)
+
+def time_now(per_sec = 1):
+    while True:
+        now = datetime.now().strftime("%H:%M:%S")
+        time.sleep(per_sec)
+        return now
+
 while True:
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
     temperature = dhtDevice.temperature
     huminity = dhtDevice.humidity
+    now = time_now()
 
-    draw.text((x, top + 2), f"Temperature : {temperature}C", font=font, fill=255)
-    draw.text((x, top + 12), f"Huminity : {huminity}%", font=font, fill=255)
+    draw_txt(2, 'Temperature', temperature)
+    draw_txt(12, 'Huminity', huminity)
+    draw_txt(22, 'Now', now)
 
     # display image
     disp.image(image)
