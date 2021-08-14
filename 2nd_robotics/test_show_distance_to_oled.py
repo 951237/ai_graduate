@@ -1,9 +1,66 @@
 # 초음파에서 측정한 거리를 oled에 출력하기 
 # -*- coding: utf-8 -*-
-import RPi.GPIO as GPIO
-import time
 import sys
+import time
+from datetime import datetime
+from PIL import Image, ImageDraw, ImageFont
+
+import RPi.GPIO as GPIO
 import signal
+import board
+import busio
+import adafruit_ssd1306
+
+i2c = busio.I2C(board.SCL, board.SDA)
+
+# creat obj ss1396
+disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
+
+# clear display
+disp.fill(0)
+disp.show()
+
+# create blank image
+width = disp.width
+height = disp.height
+image = Image.new("1", (width, height))
+
+# get drawing obj
+draw = ImageDraw.Draw(image)
+
+# draw clear image
+draw.rectangle((0, 0, width, height), outline=0, fill=0)
+
+# first define some constant
+padding = -1
+top = padding
+bottom = height - padding
+x = 0
+
+# load font
+font = ImageFont.load_default()
+
+def draw_txt(loc, sub, result):
+    draw.text((x, top + loc), f"{sub} : {result}cm", font=font, fill=255)
+
+def time_now(per_sec = 1):
+    while True:
+        now = datetime.now().strftime("%H:%M:%S")
+        time.sleep(per_sec)
+        return now
+def show_display(distance):
+    draw.rectangle((0, 0, width, height), outline=0, fill=0)
+
+    now = time_now()
+
+    draw_txt(2, 'Distance', distance)
+    draw_txt(12, 'Now', now)
+
+    # display image
+    disp.image(image)
+    disp.show()
+    time.sleep(0.01)
+
 
 #GPIO 핀
 TRIG = 23 # 트리거
@@ -112,7 +169,8 @@ def main():
         distance = round(distance, 2)
 
         #표시
-        print_distance(distance)
+        # print_distance(distance)
+        show_display(distance)
 
     GPIO.cleanup()
 
